@@ -1,7 +1,9 @@
 <h1>My Subscriptions</h1>
 
 <ul>
-  <li *ngFor="let sub of subscriptions">
-    {{ sub.name }} - ${{ sub.price }} - {{ sub.paymentMethod }}
-  </li>
+  @for (sub of subscriptions(); track sub.id) {
+    <li>
+      {{ sub.name }} - ${{ sub.price }} - {{ sub.paymentMethod }}
+    </li>
+  }
 </ul>

@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { SubscriptionService } from './services/subscription.service';
-import { Subscription } from './models/subscription';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.html'
+  standalone: true, 
+  imports: [RouterOutlet],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class App implements OnInit {
+export class App {
+  subscriptions: any;
 
-  subscriptions: Subscription[] = [];
-
-  constructor(private subscriptionService: SubscriptionService) {}
-
-  ngOnInit(): void {
-    this.subscriptionService.getSubscriptions()
-      .subscribe(data => {
-        this.subscriptions = data;
-      });
+  constructor(private subscriptionService: SubscriptionService) 
+  {
+    this.subscriptions = this.subscriptionService.getSubscriptions(); 
   }
+
+  
 }

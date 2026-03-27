@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Subscription } from '../models/subscription';
 
 @Injectable({
@@ -8,11 +6,26 @@ import { Subscription } from '../models/subscription';
 })
 export class SubscriptionService {
 
-  private apiUrl = 'http://localhost:5219/api/subscription';
+  private subscriptions = signal<Subscription[]>([
+    {
+      id: 1,
+      name: 'Netflix',
+      price: 10,
+      startDate: '2024-01-01',
+      paymentMethod: 'Credit Card',
+      isActive: true
+    },
+    {
+      id: 2,
+      name: 'Spotify',
+      price: 5,
+      startDate: '2024-02-01',
+      paymentMethod: 'PayPal',
+      isActive: true
+    }
+  ]);
 
-  constructor(private http: HttpClient) {}
-
-  getSubscriptions(): Observable<Subscription[]> {
-    return this.http.get<Subscription[]>(this.apiUrl);
+  getSubscriptions() {
+    return this.subscriptions;
   }
 }
